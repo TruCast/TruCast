@@ -1,0 +1,30 @@
+export const CONNECT_FEED = 'CONNECT_FEED'
+export const ROOM_DATA = 'ROOM_DATA'
+export const SHOW_CALLERS = 'SHOW_CALLERS'
+export const HIDE_CALLERS = 'HIDE_CALLERS'
+export const HANDLE_ERROR = 'HANDLE_ERROR'
+export const RESET_ROOM = 'RESET_ROOM'
+
+export const JOIN_ACTION = 'JOIN_ACTION'
+export const JOIN = 'JOIN'
+
+export const LEAVE_ACTION = 'LEAVE_ACTION'
+export const LEAVE = 'LEAVE'
+
+export const ADD_COMMENT_ACTION = 'ADD_COMMENT_ACTION'
+export const ADD_COMMENT = 'ADD_COMMENT'
+
+export const CHANGE_TITLE_ACTION = 'CHANGE_TITLE_ACTION'
+export const CHANGE_TITLE = 'CHANGE_TITLE'
+
+export const ACCEPT_CALLER_ACTION = 'ACCEPT_CALLER_ACTION'
+export const ACCEPT_CALLER = 'ACCEPT_CALLER'
+
+export const LEAVE_SEAT_ACTION = 'LEAVE_SEAT_ACTION'
+export const LEAVE_SEAT = 'LEAVE_SEAT'
+
+export const CALL_ACTION = 'CALL_ACTION'
+export const CALL = 'CALL'
+
+export const CANCEL_CALL_ACTION = 'CANCEL_CALL_ACTION'
+export const CANCEL_CALL = 'CANCEL_CALL'

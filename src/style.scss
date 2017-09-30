@@ -1,0 +1,615 @@
+@import "normalize";
+
+// colors
+
+$white: #fafafa;
+$light-grey: #777;
+$lighter-grey: #555;
+$grey: #444;
+$dull-grey: #333;
+$dark-grey: #222;
+$base-color: $white;
+$black: #000;
+$primary-color: #2f5671;
+$twitter-color: #00aced;
+
+// constants
+
+$large: 1.5em;
+$horizontal-spacing: 15px;
+$comments-width: 350px;
+$header-height: 60px;
+
+$size-l: 1.4em;
+
+// mixins
+
+@mixin scrollbars(
+  $size,
+  $foreground-color,
+  $background-color: transparent
+) {
+  ::-webkit-scrollbar {
+      width:  $size;
+      height: $size;
+  }
+
+  ::-webkit-scrollbar-thumb {
+      background: $foreground-color;
+  }
+
+  ::-webkit-scrollbar-track {
+      background: $background-color;
+  }
+
+  // For Internet Explorer
+  body {
+    scrollbar-face-color: $foreground-color;
+    scrollbar-track-color: $background-color;
+  }
+}
+
+@mixin size($size) {
+  height: $size;
+  width: $size;
+}
+
+@mixin button-colors($color) {
+  background-color: $color;
+  border-color: lighten($color, 20%);
+
+  &:hover {
+    background-color: darken($color, 10%);
+    border-color: lighten($color, 10%);
+  }
+
+  &:active {
+    background-color: darken($color, 18%);
+    border-color: $color;
+    color: $white;
+  }
+}
+
+// tags
+
+h1, h2, h3, h4, h5, p {
+  padding: 0;
+  margin: 0;
+}
+
+html, body, #root, .App, .Room, .Seats {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  color: $base-color;
+  background-color: $dark-grey;
+}
+
+a {
+  color: $base-color;
+  text-decoration: none;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+img {
+  vertical-align: middle;
+}
+
+input {
+  box-sizing: border-box;
+  padding: 9px;
+  outline: none;
+  border: none;
+  background-color: $dark-grey;
+
+  &:not(.u-bare) {
+    /* border: 1px solid $subtle-grey-color; */
+
+    /* &:focus { */
+    /*   border-color: $blue-color; */
+    /*   box-shadow: 0 0 1px 2px rgba($blue-color, 0.25); */
+    /* } */
+  }
+}
+
+@include scrollbars(.5em, $light-grey);
+
+// components
+
+.Home {
+  text-align: center;
+  padding-top: 100px;
+
+  h1 {
+    font-size: 100px;
+  }
+
+  p {
+    padding: 20px 0 90px;
+    font-size: 20px;
+  }
+}
+
+button {
+  display: inline-block;
+  outline: none;
+  vertical-align: middle;
+  color: #fff;
+  font-weight: bold;
+  position: relative;
+  border: none;
+  background: transparent;
+}
+
+.Button {
+  padding: 9px 18px;
+  border-radius: 4px;
+  border: 1px solid #fff;
+
+  &:hover {
+    background-color: $light-grey;
+  }
+
+  &:active {
+    background-color: #fff;
+    color: $black;
+  }
+
+  &--primary {
+    @include button-colors($primary-color);
+  }
+
+  .Icon {
+    margin-right: 8px;
+  }
+}
+
+.TwitterLogin {
+  @include button-colors($twitter-color);
+}
+
+.Room {
+  &__title {
+    font-size: $large;
+    margin-right: $horizontal-spacing;
+
+    form {
+      display: inline;
+    }
+  }
+
+  &__header {
+    height: $header-height;
+    border-bottom: 1px solid $grey;
+    padding: 0 15px 0 8px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+
+    .User__icon {
+      vertical-align: middle;
+      height: 38px;
+      width: 38px;
+    }
+
+    input {
+      border: 1px solid $dull-grey;
+      padding: 2px;
+      padding-left: 7px;
+      border-radius: 3px;
+      width: 300px;
+
+      &:focus {
+        border-color: $light-grey;
+      }
+
+      &:active {
+        border-color: $white;
+      }
+    }
+
+    .DropdownButton .User__icon {
+      @include size(24px);
+      padding: 0 10px;
+      border-left: 1px solid $dull-grey;
+    }
+  }
+
+  &__body {
+    display: flex;
+    position: relative;
+    height: calc(100% - #{$header-height});
+    width: 100%;
+  }
+
+  &__content {
+    flex-grow: 1;
+  }
+
+  &__absent {
+    margin-top: 100px;
+    text-align: center;
+
+    &-icon {
+      color: $grey;
+      font-size: 16em;
+      font-weight: bold;
+    }
+
+    &-message {
+      font-size: 1.4em;
+    }
+  }
+}
+
+.ViewerInfo {
+  flex-shrink: 0;
+
+  &__count {
+    vertical-align: middle;
+    margin-right: $horizontal-spacing;
+
+    .Icon {
+      margin-right: 4px;
+    }
+
+    &.u-active {
+      font-weight: bold;
+    }
+  }
+}
+
+.ViewerList {
+  flex-grow: 1;
+  display: flex;
+  overflow: hidden;
+
+  .User {
+    margin-right: 10px;
+  }
+}
+
+.Comments {
+  background-color: $dark-grey;
+  border-left: 1px solid $grey;
+  width: $comments-width;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  &__list {
+    flex-grow: 1;
+    padding: 0 15px;
+    padding-top: 15px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  &__input {
+
+    input {
+      width: 100%;
+      padding: 15px;
+      background-color: $grey;
+      color: $white;
+    }
+  }
+
+  .Comment, .EventNotice {
+    margin-bottom: 15px;
+  }
+
+  &__unread {
+    background-color: $primary-color;
+    padding: 15px;
+    position: absolute;
+    bottom: 52px;
+    left: 0;
+    right: 0;
+  }
+}
+
+.User{
+  display: inline-block;
+
+  &__icon {
+    $size: 48px;
+    height: $size;
+    width: $size;
+    border-radius: 3px;
+  }
+}
+
+.Seats {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 300px;
+
+  &__container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+}
+
+.Seat {
+  $border-radius: 4px;
+  border-radius: $border-radius;
+  position: relative;
+  margin: 12px;
+  vertical-align: middle;
+
+  & > .CloseButton {
+    @include size(30px);
+    padding: 0;
+    border-radius: 50%;
+    background-color: rgba($black, 0.22);
+    border: 2px solid rgba($white, 0.65);
+    top: 10px;
+    right: 10px;
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+
+    i {
+      margin: 0;
+    }
+  }
+
+  &:hover {
+    .CloseButton {
+      opacity: 1;
+    }
+  }
+
+  &__user {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: 10px;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: $border-radius;
+
+    .User {
+      margin-right: 10px;
+    }
+
+    .User__icon {
+      height: 32px;
+      width: 32px;
+    }
+  }
+
+  video {
+    height: 100%;
+    width: 100%;
+    border-radius: $border-radius;
+    object-fit: cover;
+  }
+
+  &--opaque {
+    box-shadow: 0 0 6px rgba($black, 0.58);
+  }
+
+  &__container {
+    @include size(100%);
+  }
+}
+
+.CallersPanel {
+  background-color: rgba(0, 0, 0, 0.75);
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  z-index: 1;
+
+  &__caller {
+    display: flex;
+    margin-bottom: 15px;
+
+    .UserGroup {
+      flex-grow: 1;
+      margin-right: 15px;
+    }
+
+    .User {
+      margin-right: 10px;
+    }
+  }
+
+  &__callers {
+    padding: 0 15px;
+    overflow-y: scroll;
+  }
+
+  &__header {
+    padding: 15px;
+
+    .CloseButton {
+      float: right;
+
+      i {
+        margin: 0;
+      }
+    }
+  }
+}
+
+.EmptySeat {
+  border: 2px dashed $grey;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  &__waiting {
+    font-size: $size-l;
+    padding: 15px;
+
+    i {
+      margin-right: 10px;
+    }
+  }
+
+  &__callers {
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: center;
+
+    .User {
+      margin: 0 8px;
+    }
+  }
+
+  &__link {
+    background-color: $grey;
+    border: 1px solid $light-grey;
+    border-radius: 3px;
+    padding: 4px;
+    font-family: monospace;
+    font-size: 0.8em;
+  }
+
+  .Button--primary {
+    font-size: 1.2em;
+  }
+}
+
+.Comment {
+  display: flex;
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+  }
+
+  .Username {
+    margin-bottom: 3px;
+  }
+}
+
+.EventNotice {
+  background-color: $dull-grey;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  padding: 10px;
+}
+
+.DropdownList {
+  line-height: initial;
+  padding: 12px;
+  margin: 0;
+  background-color: black;
+  list-style: none;
+  position: absolute;
+  box-sizing: border-box;
+  box-shadow: 0 0 15px rgba(#000, 0.4);
+  z-index: 1;
+
+  li {
+    padding: 5px 0;
+
+    a:hover {
+      color: $light-grey;
+    }
+  }
+}
+
+.ProfileDropdown {
+  flex-shrink: 0;
+  padding-left: 30px;
+  position: relative;
+
+  .DropdownList {
+    right: 0px;
+    width: 130px;
+    top: 30px;
+  }
+}
+
+.Modal {
+  &__backdrop {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 1;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.75);
+  }
+
+  &__container {
+    background-color: $white;
+    border-radius: 3px;
+    padding: 30px;
+    position: relative;
+
+    .CloseButton {
+      color: $dull-grey;
+      position: absolute;
+      top: 5px;
+      font-size: 24px;
+      right: 5px;
+    }
+  }
+}
+
+.UserModal {
+  display: flex;
+  flex-direction: column;
+  width: 340px;
+  color: $dull-grey;
+
+  &__header {
+    font-size: 1.5em;
+
+    .User__icon {
+      @include size(48px);
+      border: 1px solid $light-grey;
+    }
+
+    .UserModal__username, .User__icon {
+      margin-right: 15px;
+    }
+
+    .UserModal__username {
+      font-weight: 600;
+    }
+  }
+
+  .fa-twitter {
+    color: $twitter-color;
+  }
+
+  &__actions {
+    margin-top: 25px;
+
+    .Button {
+      width: 100%;
+      display: inline-block;
+      box-sizing: border-box;
+      text-align: center;
+      border: none;
+    }
+  }
+}
