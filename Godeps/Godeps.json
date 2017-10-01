@@ -1,0 +1,94 @@
+{
+	"ImportPath": "github.com/trucast/trucast",
+	"GoVersion": "go1.8",
+	"GodepVersion": "v79",
+	"Deps": [
+		{
+			"ImportPath": "github.com/dgrijalva/jwt-go",
+			"Comment": "v3.0.0-20-ga539ee1",
+			"Rev": "a539ee1a749a2b895533f979515ac7e6e0f5b650"
+		},
+		{
+			"ImportPath": "github.com/garyburd/go-oauth/oauth",
+			"Rev": "166ce8d672783fbb5a72247c3cf459267717e1ec"
+		},
+		{
+			"ImportPath": "github.com/garyburd/redigo/internal",
+			"Comment": "v1.1.0-9-gb925df3",
+			"Rev": "b925df3cc15d8646e9b5b333ebaf3011385aba11"
+		},
+		{
+			"ImportPath": "github.com/garyburd/redigo/redis",
+			"Comment": "v1.1.0-9-gb925df3",
+			"Rev": "b925df3cc15d8646e9b5b333ebaf3011385aba11"
+		},
+		{
+			"ImportPath": "github.com/gorilla/context",
+			"Comment": "v1.1-7-g08b5f42",
+			"Rev": "08b5f424b9271eedf6f9f0ce86cb9396ed337a42"
+		},
+		{
+			"ImportPath": "github.com/gorilla/securecookie",
+			"Comment": "v1.1-6-ge59506c",
+			"Rev": "e59506cc896acb7f7bf732d4fdf5e25f7ccd8983"
+		},
+		{
+			"ImportPath": "github.com/gorilla/sessions",
+			"Comment": "v1.1-7-gb61c93c",
+			"Rev": "b61c93cb7f67533c8bfbb5ea450efc07e5833c5e"
+		},
+		{
+			"ImportPath": "github.com/gorilla/websocket",
+			"Comment": "v1.2.0-6-ga69d9f6",
+			"Rev": "a69d9f6de432e2c6b296a947d8a5ee88f68522cf"
+		},
+		{
+			"ImportPath": "github.com/pjebs/tokbox",
+			"Rev": "bd811d1cf7668be734a212e501ce9505d1629368"
+		},
+		{
+			"ImportPath": "github.com/rs/cors",
+			"Comment": "v1.2-1-geabcc6a",
+			"Rev": "eabcc6af4bbe5ad3a949d36450326a2b0b9894b8"
+		},
+		{
+			"ImportPath": "github.com/twinj/uuid",
+			"Comment": "v0.1.0",
+			"Rev": "7bbe408d339787c56ec15568c947c0959db1b275"
+		},
+		{
+			"ImportPath": "goji.io",
+			"Comment": "v1.1",
+			"Rev": "bc2e9e7dc2769805d1b6ce4dc48ec23a03ae82ec"
+		},
+		{
+			"ImportPath": "goji.io/internal",
+			"Comment": "v1.1",
+			"Rev": "bc2e9e7dc2769805d1b6ce4dc48ec23a03ae82ec"
+		},
+		{
+			"ImportPath": "goji.io/middleware",
+			"Comment": "v1.1",
+			"Rev": "bc2e9e7dc2769805d1b6ce4dc48ec23a03ae82ec"
+		},
+		{
+			"ImportPath": "goji.io/pat",
+			"Comment": "v1.1",
+			"Rev": "bc2e9e7dc2769805d1b6ce4dc48ec23a03ae82ec"
+		},
+		{
+			"ImportPath": "goji.io/pattern",
+			"Comment": "v1.1",
+			"Rev": "bc2e9e7dc2769805d1b6ce4dc48ec23a03ae82ec"
+		},
+		{
+			"ImportPath": "golang.org/x/net/context",
+			"Rev": "a6577fac2d73be281a500b310739095313165611"
+		},
+		{
+			"ImportPath": "gopkg.in/boj/redistore.v1",
+			"Comment": "v1.2",
+			"Rev": "fc113767cd6b051980f260d6dbe84b2740c46ab0"
+		}
+	]
+}

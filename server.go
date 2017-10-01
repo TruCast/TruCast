@@ -18,6 +18,20 @@ const (
 
 // Environment Variables:
 
+/*func envVars() {
+	os.Setenv(
+	PORT = 8080,
+	TOKBOX_KEY = 45954042,
+	TOKBOX_SECRET_KEY = 09c3ddf3377ef03cbb8541a57412917b1df4da29,
+	BLARG_ENV = Development
+	TWITTER_KEY = p9E9BaAW2fJAfXe9lX0muRjDU
+	TWITTER_SECRET_KEY = ylYFIDvuZfj9b4C0B1WN3yHTU4ii0GA78kzIPqhGEAt2eNORjP
+	REDIS_PORT_6379_TCP_ADDR = 127.0.0.1
+	REDIS_PORT_6379_TCP_POST = 6379
+	REDIS_PASSWORD = gnum3082821427cnum4025401004
+)
+}*/
+
 // TOKBOX_KEY
 // TOKBOX_SECRET_KEY
 // BLARG_ENV
@@ -55,7 +69,7 @@ func newPool(addr, password string) *redis.Pool {
 		// Dial is an application supplied function for creating and configuring a
 		// connection
 		Dial: func() (redis.Conn, error) {
-			c, err := redis.Dial("tcp", addr)
+			c, err := redis.Dial("tcp", "localhost:6379")
 			if err != nil {
 				return nil, err
 			}
