@@ -27,8 +27,8 @@ class Home extends Component {
   render() {
     return (
       <div className="Home">
-        <h1>Mom and Jesse Test ;)</h1>
-        <p>Ramble with friends.</p>
+        <h1>TruCast beta</h1>
+        <p>Stream with friends.</p>
         <TwitterLogin />
       </div>
     )
