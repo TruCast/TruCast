@@ -1,7 +1,7 @@
 const _ = require('lodash')
 const path = require('path')
 const webpack = require('webpack')
-const unixFormatter = require('eslint/lib/formatters/unix')
+// const unixFormatter = require('eslint/lib/formatters/unix')
 
 const isProduction = process.env.NODE_ENV === 'production'
 
@@ -27,15 +27,15 @@ module.exports = {
     !isProduction && new webpack.HotModuleReplacementPlugin(),
     new webpack.DefinePlugin({
       BASE_URL: JSON.stringify(isProduction
-        ? 'https://blarg-im.herokuapp.com'
+        ? 'https://peer-cast.herokuapp.com'
         : 'http://localhost:8000'
       ),
       API_BASE_URL: JSON.stringify(isProduction
-        ? 'https://blarg-im.herokuapp.com/v1'
+        ? 'https://peer-cast.herokuapp.com/v1'
         : 'http://localhost:8000/v1'
       ),
       WS_URL: JSON.stringify(isProduction
-        ? 'wss://blarg-im.herokuapp.com/v1/ws'
+        ? 'wss://peer-cast.herokuapp.com/v1/ws'
         : 'ws://localhost:8000/v1/ws'
       ),
     }),

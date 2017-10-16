@@ -1,5 +1,6 @@
 /* eslint-env browser */
 /* global OT */
+/* global WS_URL */
 
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
@@ -32,7 +33,7 @@ class Seats extends React.Component {
 
   state = {
     containerSize: 0,
-    size: false,
+    size: 0,
   }
 
   componentWillMount() {
@@ -107,9 +108,9 @@ class Seats extends React.Component {
           className="Seats__container"
           style={{ height: containerSize, width: containerSize }}
         >
-          {size && seats.map(this.renderSeat)}
+          {seats.map(this.renderSeat)}
           {
-            size && showEmptySeat && (
+            showEmptySeat && (
               <EmptySeat
                 size={size}
                 isHost={isHost}

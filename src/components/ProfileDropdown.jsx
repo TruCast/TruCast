@@ -11,6 +11,7 @@ const ProfileDropdown = (props) => (
   >
     <MenuItem href="/">My Room</MenuItem>
     <MenuItem href="/v1/logout">Logout</MenuItem>
+    <MenuItem href={`/${props.userId}/stream`}>Stream</MenuItem>
   </DropdownButton>
 )
 

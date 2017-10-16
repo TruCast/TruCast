@@ -16,7 +16,7 @@ func main() {
 		port = "8000"
 	}
 
-	addr := "127.0.0.1:" + port
+	addr := "0.0.0.0:" + port
 
 	log.Println("started server at " + addr)
 	log.Fatal(http.ListenAndServe(addr, NewRouter(&server)))
