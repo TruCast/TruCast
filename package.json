@@ -5,7 +5,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node_modules/.bin/webpack -w",
-    "build": "TRUCAST_ENV=production node_modules/.bin/webpack"
+    "build": "TRUCAST_ENV=production node_modules/.bin/webpack",
+    "postinstall": "npm run build"
   },
   "author": "Joey Jarosz",
   "license": "MIT",
