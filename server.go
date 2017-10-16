@@ -39,6 +39,10 @@ type Server struct {
 }
 
 func newPool(addr, password string) *redis.Pool {
+	environment := Development
+	if os.Getenv("TRUCAST_ENV") == "production" {
+		environment = Production
+	}
 	return &redis.Pool{
 		// Maximum number of idle connections in the pool.
 		MaxIdle: 100,
@@ -55,8 +59,7 @@ func newPool(addr, password string) *redis.Pool {
 		// Dial is an application supplied function for creating and configuring a
 		// connection
 		Dial: func() (redis.Conn, error) {
-			c, err := redis.DialURL(os.Getenv("REDIS_URL"))
-			// c, err := redis.Dial("tcp", "localhost:6379")
+			c, err := redis.Dial("tcp", "localhost:6379")
 			if err != nil {
 				return nil, err
 			}
@@ -64,6 +67,13 @@ func newPool(addr, password string) *redis.Pool {
 			if password != "" {
 				if _, err := c.Do("AUTH", password); err != nil {
 					c.Close()
+					return nil, err
+				}
+			}
+
+			if environment == Production {
+				c, err = redis.DialURL(os.Getenv("REDIS_URL"))
+				if err != nil {
 					return nil, err
 				}
 			}
@@ -76,14 +86,16 @@ func newPool(addr, password string) *redis.Pool {
 func NewServer() Server {
 	// Get environment
 	environment := Development
-	if os.Getenv("BLARG_ENV") == "production" {
+	if os.Getenv("TRUCAST_ENV") == "production" {
 		environment = Production
 	}
 
 	// Redis
-	/* redisAddr := os.Getenv("REDIS_PORT_6379_TCP_ADDR") +
-		":" + os.Getenv("REDIS_PORT_6379_TCP_PORT")*/
-	redisAddr := os.Getenv("REDIS_URL")
+	redisAddr := os.Getenv("REDIS_PORT_6379_TCP_ADDR") +
+		":" + os.Getenv("REDIS_PORT_6379_TCP_PORT")
+	if environment == Production {
+		redisAddr = os.Getenv("REDIS_URL")
+	}
 	redisPool := newPool(redisAddr, os.Getenv("REDIS_PASSWORD"))
 
 	// Redis store

@@ -52,6 +52,11 @@
 			"Rev": "eabcc6af4bbe5ad3a949d36450326a2b0b9894b8"
 		},
 		{
+			"ImportPath": "github.com/subosito/gotenv",
+			"Comment": "v1.1.0",
+			"Rev": "009e1f9581dc712aba5682a279dee155ca3eeded"
+		},
+		{
 			"ImportPath": "github.com/twinj/uuid",
 			"Comment": "v0.1.0",
 			"Rev": "7bbe408d339787c56ec15568c947c0959db1b275"
