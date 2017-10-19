@@ -1,34 +1,25 @@
+/* eslint-env browser */
 /* global OT */
 
 import React, { PropTypes } from 'react'
-import { connect } from 'react-redux'
 
 class Streams extends React.Component {
 
   static propTypes = {
-    userId: PropTypes.string,
-    roomId: PropTypes.string.isRequired,
-    seatUserId: PropTypes.string.isRequired,
     room: PropTypes.shape({
       seats: PropTypes.arrayOf(
         PropTypes.string.isRequired,
       ).isRequired,
-      token: PropTypes.string.isRequired,
+      subToken: PropTypes.string.isRequired,
       tokBoxKey: PropTypes.string.isRequired,
       sessionId: PropTypes.string.isRequired,
-      session: PropTypes.shape({
-        on: PropTypes.func.isRequired,
-        off: PropTypes.func.isRequired,
-        publish: PropTypes.func.isRequired,
-        subscribe: PropTypes.func.isRequired,
-      }).isRequired,
     }).isRequired,
   }
 
   componentWillMount() {
-    const { tokBoxKey, sessionId, token } = this.props.room
-    this.session = OT.initSession(tokBoxKey, sessionId)
-    this.session.connect(token, (error) => {
+    const { tokBoxKey, sessionId, subToken } = this.props.room
+    this.session = OT.initSession(sessionId)
+    this.session.connect(subToken, tokBoxKey, (error) => {
       if (error) {
         throw error
         // return
@@ -37,33 +28,7 @@ class Streams extends React.Component {
   }
 
   componentDidMount() {
-    const { session } = this.props.room
-    if (this.isMySeat()) {
-      // Publish the stream if the session is connected.
-      if (session.connection) {
-        this.publish()
-      } else {
-        session.once('sessionConnected', this.publish)
-      }
-    } else {
-      this.props.room.session.on('streamCreated', this.handleStreamCreated)
-    }
-  }
-
-  componentWillUnmount() {
-    const { session } = this.props.room
-
-    if (!this.isMySeat) {
-      this.props.room.session.off('streamCreated', this.handleStreamCreated)
-    }
-
-    if (this.publisher) {
-      session.unpublish(this.publisher)
-    }
-
-    if (this.subscriber) {
-      session.unsubscribe(this.subscriber)
-    }
+    this.session.on('streamCreated', this.handleStreamCreated)
   }
 
   setVideoNode = (videoNode) => {
@@ -71,53 +36,57 @@ class Streams extends React.Component {
   }
 
   handleStreamCreated = (event) => {
-    const userId = event.stream.connection.data.replace('userId=', '')
-    if (userId !== this.props.seatUserId) {
-      return
-    }
-
-    this.subscriber = this.props.room.session.subscribe(event.stream, null, {
+    this.session.subscribe(event.stream, null, {
       insertDefaultUI: false,
     })
 
-    this.subscriber.once('videoElementCreated', this.handleVideoElementCreated)
+    this.session.once('videoElementCreated', this.handleVideoElementCreated)
   }
 
   handleVideoElementCreated = (event) => {
     const { videoNode } = this
-    if (!videoNode) {
+    /* if (!videoNode) {
       return
     }
 
     while (videoNode.firstChild) {
       videoNode.removeChild(videoNode.firstChild)
-    }
+    }*/
     videoNode.appendChild(event.element)
   }
 
+  /* setSeatsNode = (node) => {
+    this.node = node
+  }
+
+  handleResize = () => {
+    if (!this.node) {
+      return
+    }
+
+    const rect = this.node.getBoundingClientRect()
+    const containerSize = Math.min(rect.height, rect.width) - CONTAINER_SIZE_DIFF
+    const size = Math.floor(containerSize / 2) - SEAT_SIZE_DIFF
+    this.setState({ size, containerSize })
+  }
+
   seats = {}
+  streams = {}
+
+  renderStream = (stream) => (
+    <vidStream
+      {...stream}
+      session={this.session}
+      key={stream.seatUserId}
+      isHost={this.props.isHost}
+    />
+  )*/
 
   render() {
-    const { roomId, room } = this.props
-    const seats = [{
-      // isHost: true,
-      seatUserId: roomId,
-    }].concat(room.seats.map(seatUserId => ({
-      seatUserId,
-      // isHost: false,
-    })))
     return (
-      <div className="Streams">
-        <div
-          className="Streams__left"
-        >
-          {this.setVideoNode()}
-        </div>
-      </div>
+      <div className="Streams" ref={this.setVideoNode} />
     )
   }
 }
 
-export default connect(
-  ({ user }) => ({ userId: user.id })
-)(Streams)
+export default (Streams)

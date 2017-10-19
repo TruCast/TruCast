@@ -4,7 +4,6 @@ import { connect } from 'react-redux'
 import Streams from 'components/Streams'
 import {
   join,
-  leave,
 } from 'actions'
 
 class StreamLoader extends React.Component {
@@ -14,17 +13,12 @@ class StreamLoader extends React.Component {
       roomId: PropTypes.string.isRequired,
     }).isRequired,
     join: PropTypes.func.isRequired,
-    leave: PropTypes.func.isRequired,
     room: PropTypes.shape({}).isRequired,
   }
 
   componentWillMount() {
     const { roomId } = this.props.params
     this.props.join(roomId)
-  }
-
-  componentWillUnmount() {
-    this.props.leave()
   }
 
   render() {
@@ -35,13 +29,12 @@ class StreamLoader extends React.Component {
       return (<div>You fail it.</div>)
     }
 
-    return (<Streams room={room} roomId={this.props.params.roomId} />)
+    return (<Streams room={room} />)
   }
 }
 
 export default connect(
   ({ room }) => ({ room }), {
     join,
-    leave,
   }
 )(StreamLoader)

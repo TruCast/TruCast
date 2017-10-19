@@ -48,6 +48,10 @@ func newToken(session *tokbox.Session, role tokbox.Role, userId string) (string,
 	return session.Token(role, "userId="+userId, tokbox.Days30)
 }
 
+/* func subToken(session *tokbox.Session, subRole tokbox.Role, userId string) (string, error) {
+	return session.Token(subRole, "userId="+userId, tokbox.Days30)
+}*/
+
 func (s *Server) HandleWS(w http.ResponseWriter, r *http.Request) {
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
@@ -161,6 +165,7 @@ func (s *Server) HandleWS(w http.ResponseWriter, r *http.Request) {
 			// 	// Only the host gets the publish ability on initial connection.
 			// 	role = tokbox.Role(tokbox.Publisher)
 			// }
+			// subRole := tokbox.Role(tokbox.Subscriber)
 
 			token, err := newToken(session, role, userId)
 			if err != nil {
@@ -169,9 +174,17 @@ func (s *Server) HandleWS(w http.ResponseWriter, r *http.Request) {
 				return
 			}
 
+			/* subToken, err := subToken(session, subRole, userId)
+			if err != nil {
+				println("err", err.Error())
+				log.Println("token generation error:", err)
+				return
+			}*/
+
 			// Send the initial payload on join.
 			roomData := room.ToJSON()
 			roomData["token"] = token
+			// roomData["subToken"] = subToken
 			roomData["tokBoxKey"] = s.TokBoxKey
 			roomMessage := getMessage(ROOM_DATA, roomData)
 			if err = conn.WriteJSON(roomMessage); err != nil {
