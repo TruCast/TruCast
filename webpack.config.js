@@ -28,15 +28,15 @@ module.exports = {
     new webpack.DefinePlugin({
       BASE_URL: JSON.stringify(isProduction
         ? 'https://peer-cast.herokuapp.com'
-        : 'http://peer-cast.herokuapp.com'
+        : 'http://localhost:8000'
       ),
       API_BASE_URL: JSON.stringify(isProduction
         ? 'https://peer-cast.herokuapp.com/v1'
-        : 'http://peer-cast.herokuapp.com/v1'
+        : 'http://localhost:8000/v1'
       ),
       WS_URL: JSON.stringify(isProduction
         ? 'wss://peer-cast.herokuapp.com/v1/ws'
-        : 'ws://peer-cast.herokuapp.com/v1/ws'
+        : 'ws://localhost:8000/v1/ws'
       ),
     }),
   ]),

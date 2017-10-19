@@ -127,7 +127,7 @@ func NewServer() Server {
 	state := NewLocalState()
 
 	// Config
-	clientBaseUrl := "https://peer-cast.herokuapp.com"
+	clientBaseUrl := "http://localhost:8000"
 	forceHTTPS := false
 	if environment == Production {
 		clientBaseUrl = "https://peer-cast.herokuapp.com"

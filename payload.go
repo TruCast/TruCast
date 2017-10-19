@@ -9,13 +9,12 @@ import (
 	"goji.io"
 	"goji.io/middleware"
 	"golang.org/x/net/context"
-	"github.com/subosito/gotenv"
 )
 
 var indexTmpl *template.Template
 
 func init() {
-	gotenv.Load()
+	// gotenv.Load()"github.com/subosito/gotenv"
 	data, err := ioutil.ReadFile("./index.html")
 	if err != nil {
 		panic(err)
