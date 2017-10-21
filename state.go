@@ -18,7 +18,7 @@ type Room struct {
 	title        string
 	comments     []Comment
 	subscribers  map[chan StateMessage]string
-	totalAnons   map[string]bool
+	// totalAnons   map[string]bool
 	totalMembers map[string]bool
 	callers      []string
 	seats        []string
@@ -85,7 +85,7 @@ func (r *Room) ToJSON() map[string]interface{} {
 }
 
 func (r *Room) getViewerCounts() (int, int) {
-	totalViewers := len(r.totalMembers) + len(r.totalAnons)
+	totalViewers := len(r.totalMembers)// + len(r.totalAnons)
 	activeViewers := len(r.subscribers)
 	return totalViewers, activeViewers
 }
@@ -102,7 +102,7 @@ func (r *Room) getViewerPayload(userId string) map[string]interface{} {
 type State interface {
 	SetRoomSessionId(roomId string, sessionId string)
 	// userId is "" if the user is unauthenticated
-	Join(roomId string, userId string, address string) (*Room, chan StateMessage)
+	Join(roomId string, userId string) (*Room, chan StateMessage)//address string
 	// userId is "" if the user is unauthenticated
 	Leave(roomId string, skip chan StateMessage, userId string)
 	AddComment(roomId string, skip chan StateMessage, comment Comment)
@@ -124,14 +124,14 @@ func NewLocalState() LocalState {
 	}
 }
 
-func (s *LocalState) Join(roomId string, userId string, address string) (*Room, chan StateMessage) {
+func (s *LocalState) Join(roomId string, userId string) (*Room, chan StateMessage) {//address string
 	room, ok := s.rooms[roomId]
 	if !ok {
 		room = Room{
 			title:        "@" + roomId + "'s Room",
 			comments:     []Comment{},
 			subscribers:  map[chan StateMessage]string{},
-			totalAnons:   map[string]bool{},
+			// totalAnons:   map[string]bool{},
 			totalMembers: map[string]bool{},
 			callers:      []string{},
 			seats:        []string{},
@@ -152,9 +152,10 @@ func (s *LocalState) Join(roomId string, userId string, address string) (*Room, 
 	messages := make(chan StateMessage)
 	room.subscribers[messages] = userId
 	if userId == "" {
-		room.totalAnons[address] = true
-	} else {
 		room.totalMembers[userId] = true
+		/* room.totalAnons[address] = true
+	} else {
+		room.totalMembers[userId] = true*/
 	}
 
 	s.rooms[roomId] = room

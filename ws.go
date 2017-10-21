@@ -1,11 +1,8 @@
 package main
 
 import (
-	"strings"
-	"bytes"
 	"log"
 	"net/http"
-	"net"
 	"time"
 
 	"github.com/gorilla/websocket"
@@ -51,7 +48,7 @@ func newToken(session *tokbox.Session, role tokbox.Role, userId string) (string,
 	return session.Token(role, "userId="+userId, tokbox.Days30)
 }
 
-type ipRange struct {
+/* type ipRange struct {
     start net.IP
     end net.IP
 }
@@ -125,7 +122,7 @@ func getIPAdress(r *http.Request) string {
         }
     }
     return ""
-}
+}*/
 
 func (s *Server) HandleWS(w http.ResponseWriter, r *http.Request) {
 	conn, err := upgrader.Upgrade(w, r, nil)
@@ -209,9 +206,9 @@ func (s *Server) HandleWS(w http.ResponseWriter, r *http.Request) {
 			leave()
 			currentRoomId = message.Payload.(string)
 			isHost = userId != "" && userId == currentRoomId
-			getIPAdress := getIPAdress(r)
+			// getIPAdress := getIPAdress(r)
 			//TODO allow multiple clients to join same room via LAN/RemoteAddr
-			room, messages := s.State.Join(currentRoomId, userId, getIPAdress)
+			room, messages := s.State.Join(currentRoomId, userId) // r.RemoteAddr
 			roomMessages = messages
 
 			// Create the room's TokBox session if it does not exist.
