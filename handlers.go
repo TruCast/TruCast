@@ -138,7 +138,7 @@ func (s *Server) HandleCallback(w http.ResponseWriter, r *http.Request) {
 		roomId = username
 	}
 
-	strings.ToLower(roomId)
+	roomId = strings.ToLower(roomId)
 
 	http.Redirect(w, r, s.ClientBaseUrl+"/"+roomId, 302)
 }
