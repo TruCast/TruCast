@@ -33,6 +33,10 @@ func NewRouter(s *Server) *goji.Mux {
 		pat.Get("/static/*"),
 		http.FileServer(http.Dir(".")).ServeHTTP,
 	)
+	mux.HandleFunc(
+		pat.Get("*"),
+		http.FileServer(http.Dir(".")).ServeHTTP,
+	)
 
 	return mux
 }
