@@ -138,9 +138,11 @@ func (s *Server) HandleCallback(w http.ResponseWriter, r *http.Request) {
 		roomId = username
 	}
 
-	roomId = strings.ToLower(roomId)
+	roomPath := roomId
 
-	http.Redirect(w, r, s.ClientBaseUrl+"/"+roomId, 302)
+	roomPath = strings.ToLower(roomPath)
+
+	http.Redirect(w, r, s.ClientBaseUrl+"/"+roomPath, 302)
 }
 
 func (s *Server) HandleLogout(w http.ResponseWriter, r *http.Request) {
