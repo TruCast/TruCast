@@ -7,7 +7,6 @@ import (
 	"log"
 	"net/http"
 	"net/url"
-	"strings"
 
 	"github.com/garyburd/go-oauth/oauth"
 )
@@ -138,11 +137,7 @@ func (s *Server) HandleCallback(w http.ResponseWriter, r *http.Request) {
 		roomId = username
 	}
 
-	roomPath := roomId
-
-	roomPath = strings.ToLower(roomPath)
-
-	http.Redirect(w, r, s.ClientBaseUrl+"/"+roomPath, 302)
+	http.Redirect(w, r, s.ClientBaseUrl+"/"+roomId, 302)
 }
 
 func (s *Server) HandleLogout(w http.ResponseWriter, r *http.Request) {

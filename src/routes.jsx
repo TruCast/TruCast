@@ -9,7 +9,7 @@ import StreamLoader from 'handlers/StreamLoader'
 export default (
   <Route path="/" component={App}>
     <IndexRoute component={Home} />
-    <Route path="/:roomPath" component={RoomLoader} />
+    <Route path="/:roomId" component={RoomLoader} />
     <Route path="/:roomId/stream" component={StreamLoader} />
   </Route>
 )
