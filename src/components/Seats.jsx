@@ -1,6 +1,5 @@
 /* eslint-env browser */
 /* global OT */
-/* global WS_URL */
 
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'

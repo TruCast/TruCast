@@ -1,6 +1,7 @@
 const _ = require('lodash')
 const path = require('path')
 const webpack = require('webpack')
+const CleanObsoleteChunks = require('webpack-clean-obsolete-chunks')
 // const unixFormatter = require('eslint/lib/formatters/unix')
 
 const isProduction = process.env.NODE_ENV === 'production'
@@ -25,6 +26,10 @@ module.exports = {
       },
     }),
     !isProduction && new webpack.HotModuleReplacementPlugin(),
+    !isProduction && new CleanObsoleteChunks({
+      verbose: true,
+      deep: true,
+    }),
     new webpack.DefinePlugin({
       BASE_URL: JSON.stringify(isProduction
         ? 'https://peer-cast.herokuapp.com'
@@ -51,7 +56,7 @@ module.exports = {
     }],
   },
   sassLoader: {
-    includePaths: [path.resolve(__dirname, './src/style')],
+    includePaths: [path.resolve(__dirname, './src/style', './src/style2')],
   },
   resolve: {
     root: path.resolve(__dirname, './src'),

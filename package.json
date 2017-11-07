@@ -33,7 +33,8 @@
     "node-sass": "^3.4.2",
     "sass-loader": "^3.1.2",
     "style-loader": "^0.13.0",
-    "webpack": "^1.13.2"
+    "webpack": "^1.13.2",
+    "webpack-clean-obsolete-chunks": "^0.3.0"
   },
   "dependencies": {
     "classnames": "^2.2.5",
@@ -43,7 +44,9 @@
     "react-addons-css-transition-group": "^15.3.2",
     "react-addons-update": "^15.3.2",
     "react-dom": "^15.3.2",
+    "react-draggable": "^3.0.3",
     "react-redux": "^4.4.5",
+    "react-rnd": "^7.1.5",
     "react-router": "^2.8.1",
     "redux": "^3.6.0",
     "redux-actions": "^0.12.0",

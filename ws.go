@@ -130,8 +130,7 @@ func (s *Server) HandleWS(w http.ResponseWriter, r *http.Request) {
 			leave()
 			currentRoomId = message.Payload.(string)
 			isHost = userId != "" && userId == currentRoomId
-			//TODO allow multiple clients to join same room via LAN/RemoteAddr
-			room, messages := s.State.Join(currentRoomId, userId, r.RemoteAddr) // r.RemoteAddr
+			room, messages := s.State.Join(currentRoomId, userId, r.RemoteAddr)
 			roomMessages = messages
 
 			// Create the room's TokBox session if it does not exist.
@@ -162,9 +161,16 @@ func (s *Server) HandleWS(w http.ResponseWriter, r *http.Request) {
 			// 	// Only the host gets the publish ability on initial connection.
 			// 	role = tokbox.Role(tokbox.Publisher)
 			// }
-			// subRole := tokbox.Role(tokbox.Subscriber)
+			subRole := tokbox.Role(tokbox.Subscriber)
 
 			token, err := newToken(session, role, userId)
+			if err != nil {
+				println("err", err.Error())
+				log.Println("token generation error:", err)
+				return
+			}
+
+			subToken, err := newToken(session, subRole, userId)
 			if err != nil {
 				println("err", err.Error())
 				log.Println("token generation error:", err)
@@ -174,6 +180,7 @@ func (s *Server) HandleWS(w http.ResponseWriter, r *http.Request) {
 			// Send the initial payload on join.
 			roomData := room.ToJSON()
 			roomData["token"] = token
+			roomData["subToken"] = subToken
 			roomData["tokBoxKey"] = s.TokBoxKey
 			roomMessage := getMessage(ROOM_DATA, roomData)
 			if err = conn.WriteJSON(roomMessage); err != nil {

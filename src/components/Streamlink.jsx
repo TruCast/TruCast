@@ -1,32 +1,36 @@
 /* global OT */
+/* eslint-env browser */
 
 import React, { PropTypes } from 'react'
+import Rnd from 'react-rnd'
 
-class vidStream extends React.Component {
+class Streamlink extends React.Component {
 
   static propTypes = {
     userId: PropTypes.string,
     seatUserId: PropTypes.string.isRequired,
-    isHost: PropTypes.bool.isRequired,
-    size: PropTypes.number.isRequired,
     session: PropTypes.shape({
       on: PropTypes.func.isRequired,
       off: PropTypes.func.isRequired,
       publish: PropTypes.func.isRequired,
       subscribe: PropTypes.func.isRequired,
     }).isRequired,
-    leaveSeat: PropTypes.func.isRequired,
+  }
+
+  constructor(props) {
+    super(props)
+    this.state = {
+      width: 250,
+      height: 140.63,
+      x: 0,
+      y: 230,
+    }
   }
 
   componentDidMount() {
     const { session } = this.props
-    if (this.isMySeat()) {
-      // Publish the stream if the session is connected.
-      if (session.connection) {
-        this.publish()
-      } else {
-        session.once('sessionConnected', this.publish)
-      }
+    if (session.connection) {
+      this.publish()
     } else {
       this.props.session.on('streamCreated', this.handleStreamCreated)
     }
@@ -65,19 +69,11 @@ class vidStream extends React.Component {
     this.subscriber.once('videoElementCreated', this.handleVideoElementCreated)
   }
 
-  /* closeSeat = () => {
-    this.props.leaveSeat(this.props.seatUserId)
-  }*/
-
-  isMySeat() {
-    const { userId, seatUserId } = this.props
-    return userId && (userId === seatUserId)
-  }
-
   publish = () => {
     this.publisher = OT.initPublisher(null, {
-      resolution: '640x480',
+      // resolution: '1280x720',
       insertDefaultUI: false,
+      // insertMode: 'append',
     }, (error) => {
       if (error) throw error
     })
@@ -91,25 +87,32 @@ class vidStream extends React.Component {
     if (!videoNode) {
       return
     }
-
-    while (videoNode.firstChild) {
-      videoNode.removeChild(videoNode.firstChild)
-    }
-    videoNode.appendChild(event.element)
+    videoNode.prepend(event.element)
   }
-
-  /* renderCloseButton() {
-    const isMySeat = this.isMySeat()
-    return (this.props.isHost ? !isMySeat : isMySeat) && (
-      <CloseButton onClick={this.closeSeat} />
-    )
-  }*/
 
   render() {
     return (
-      <div className="Stream__left" ref={this.setVideoNode} />
+      <Rnd
+        size={{ width: this.state.width, height: this.state.height }}
+        position={{ x: this.state.x, y: this.state.y }}
+        onDragStop={(e, d) => { this.setState({ x: d.x, y: d.y }) }}
+        onResize={(e, direction, ref, delta, position) => {
+          this.setState({
+            width: ref.offsetWidth,
+            height: ref.offsetHeight,
+            ...position,
+          })
+        }}
+        bounds={'.Streams'}
+        lockAspectRatio
+      >
+        <div
+          ref={this.setVideoNode}
+          className="Stream"
+        />
+      </Rnd>
     )
   }
 }
 
-export default (vidStream)
+export default Streamlink

@@ -62,6 +62,7 @@ class Seat extends React.Component {
     }
 
     this.subscriber = this.props.session.subscribe(event.stream, null, {
+      resolution: '1280x720',
       insertDefaultUI: false,
     })
 
@@ -79,7 +80,7 @@ class Seat extends React.Component {
 
   publish = () => {
     this.publisher = OT.initPublisher(null, {
-      resolution: '640x480',
+      resolution: '1280x720',
       insertDefaultUI: false,
     }, (error) => {
       if (error) throw error
