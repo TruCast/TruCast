@@ -30,6 +30,7 @@ _testmain.go
 # Dependency directory
 # https://docs.npmjs.com/misc/faq#should-i-check-my-node-modules-folder-into-git
 node_modules
+static
 
 # Optional npm cache directory
 .npm
@@ -40,5 +41,4 @@ node_modules
 npm-debug.log*
 
 procfile
-static
 .env
