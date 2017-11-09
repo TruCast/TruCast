@@ -60,6 +60,7 @@ module.exports = {
       components: 'components',
       handlers: 'handlers',
       actions: 'actions',
+      reducer: 'reducer',
     },
     extensions: ['', '.js', '.jsx', '.json'],
   },
