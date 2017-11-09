@@ -6,7 +6,6 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import { Provider } from 'react-redux'
 import { Router, browserHistory } from 'react-router'
 // import createHistory from 'history/createBrowserHistory'
-// import { Router } from 'react-router'
 
 import reducer from './reducer'
 import routes from './routes'
