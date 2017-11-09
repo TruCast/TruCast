@@ -30,7 +30,7 @@ class RoomLoader extends React.Component {
   render() {
     const { room } = this.props
     if (room.loading) {
-      return (<div>Loading room...</div>)
+      return (<i className="fa fa-circle-o-notch fa-spin" />) // <div>Loading room...</div>
     } else if (room.error) {
       return (<div>You fail it.</div>)
     }
