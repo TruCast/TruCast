@@ -121,7 +121,7 @@ const roomReducer = handleActions({
 }, defaultRoom)
 
 const userReducer = (state = {
-  id: window.BLARG_PAYLOAD.userId,
+  id: window.PEERCAST_PAYLOAD.userId,
 }) => state
 
 export default combineReducers({

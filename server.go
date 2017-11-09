@@ -20,7 +20,7 @@ const (
 
 // TOKBOX_KEY
 // TOKBOX_SECRET_KEY
-// BLARG_ENV
+// PEERCAST_ENV
 // TWITTER_KEY
 // TWITTER_SECRET_KEY
 // REDIS_PORT_6379_TCP_ADDR
@@ -60,7 +60,7 @@ func newPool(addr, password string) *redis.Pool {
 		// connection
 		Dial: func() (redis.Conn, error) {
 			// c, err := redis.Dial("tcp", "localhost:6379")
-			c, err := redis.DialURL(os.Getenv("REDIS_URL"))
+			c, err := redis.DialURL(os.Getenv("REDIS_URL")) // for prod
 			if err != nil {
 				return nil, err
 			}
@@ -92,7 +92,7 @@ func NewServer() Server {
 	}
 
 	// Redis
-	redisAddr := os.Getenv("REDIS_URL")
+	redisAddr := os.Getenv("REDIS_URL") // for prod
 	/* redisAddr := os.Getenv("REDIS_PORT_6379_TCP_ADDR") +
 		":" + os.Getenv("REDIS_PORT_6379_TCP_PORT")
 	if environment == Production {

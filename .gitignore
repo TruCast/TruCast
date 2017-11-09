@@ -40,4 +40,5 @@ node_modules
 npm-debug.log*
 
 procfile
+static
 .env

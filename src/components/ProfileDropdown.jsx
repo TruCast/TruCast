@@ -4,6 +4,7 @@ import React, { PropTypes } from 'react'
 import DropdownButton from 'components/DropdownButton'
 import MenuItem from 'components/MenuItem'
 
+// target="_blank" to open /stream in new window
 const ProfileDropdown = (props) => (
   <DropdownButton
     className="ProfileDropdown"
