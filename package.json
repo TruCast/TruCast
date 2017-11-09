@@ -33,8 +33,7 @@
     "node-sass": "^3.4.2",
     "sass-loader": "^3.1.2",
     "style-loader": "^0.13.0",
-    "webpack": "^1.13.2",
-    "webpack-clean-obsolete-chunks": "^0.3.0"
+    "webpack": "^1.13.2"
   },
   "dependencies": {
     "classnames": "^2.2.5",

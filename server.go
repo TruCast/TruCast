@@ -29,10 +29,6 @@ type Server struct {
 }
 
 func newPool(addr, password string) *redis.Pool {
-	/* environment := Development
-	if os.Getenv("TRUCAST_ENV") == "production" {
-		environment = Production
-	}*/
 	return &redis.Pool{
 		// Maximum number of idle connections in the pool.
 		MaxIdle: 100,
