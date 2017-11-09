@@ -16,16 +16,6 @@ const (
 	Production
 )
 
-// Environment Variables:
-
-// TOKBOX_KEY
-// TOKBOX_SECRET_KEY
-// PEERCAST_ENV
-// TWITTER_KEY
-// TWITTER_SECRET_KEY
-// REDIS_PORT_6379_TCP_ADDR
-// REDIS_PORT_6379_TCP_POST
-// REDIS_PASSWORD
 
 type Server struct {
 	RediStore     *redistore.RediStore
@@ -64,13 +54,6 @@ func newPool(addr, password string) *redis.Pool {
 			if err != nil {
 				return nil, err
 			}
-
-			/* if environment == Production {
-				c, err = redis.DialURL(os.Getenv("REDIS_URL"))
-				if err != nil {
-				return nil, err
-				}
-			}*/
 
 			if password != "" {
 				if _, err := c.Do("AUTH", password); err != nil {

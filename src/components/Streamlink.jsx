@@ -71,9 +71,7 @@ class Streamlink extends React.Component {
 
   publish = () => {
     this.publisher = OT.initPublisher(null, {
-      // resolution: '1280x720',
       insertDefaultUI: false,
-      // insertMode: 'append',
     }, (error) => {
       if (error) throw error
     })
