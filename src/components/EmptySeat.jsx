@@ -10,6 +10,7 @@ import {
   cancelCall,
 } from 'actions'
 import User from 'components/User'
+import Icon from 'components/Icon'
 
 const CALLER_PREVIEW_LIMIT = 5
 
@@ -78,13 +79,22 @@ class EmptySeat extends Component {
         <span>Waiting for callers...</span>
       </div>,
       this.props.seatCount === 0 ? (
-        <div key="2">
+        <Button
+          className="TwitterLogin"
+          component="a"
+          target="_blank"
+          href={`https://twitter.com/share?url=${BASE_URL}/${this.props.userId}`}
+        >
+          <Icon type="twitter" />
+        Share on Twitter
+        </Button>
+        /* <div key="2">
           Share:
           {' '}
           <span className="EmptySeat__link">
             {BASE_URL}/{this.props.userId}
           </span>
-        </div>
+        </div>*/
       ) : null,
     ]
   }

@@ -5,6 +5,7 @@ import DropdownButton from 'components/DropdownButton'
 import MenuItem from 'components/MenuItem'
 
 // target="_blank" to open /stream in new window
+// <MenuItem target="_blank" href={`/${props.userId}/stream`}>Stream</MenuItem>
 const ProfileDropdown = (props) => (
   <DropdownButton
     className="ProfileDropdown"
@@ -12,7 +13,7 @@ const ProfileDropdown = (props) => (
   >
     <MenuItem href="/">My Room</MenuItem>
     <MenuItem href="/v1/logout">Logout</MenuItem>
-    <MenuItem target="_blank" href={`/${props.userId}/stream`}>Stream</MenuItem>
+    <MenuItem target="_blank" href={`/${props.userId}/stream`}>OBS Link</MenuItem>
   </DropdownButton>
 )
 

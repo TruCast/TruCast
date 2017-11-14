@@ -19,6 +19,7 @@ class Streamlink extends React.Component {
 
   constructor(props) {
     super(props)
+
     this.state = {
       width: 250,
       height: 140.63,
@@ -70,11 +71,21 @@ class Streamlink extends React.Component {
   }
 
   publish = () => {
+    // const { seatUserId } = this.props
     this.publisher = OT.initPublisher(null, {
       insertDefaultUI: false,
     }, (error) => {
       if (error) throw error
     })
+
+    /* if (seatUserId === 0) {
+      x = 0
+      y = 230
+    } else if (seatUserId === 1) {
+      this.state.x = 1104
+      this.state.y = 230
+    }
+    this.setState({ x, y })*/
 
     this.publisher.once('videoElementCreated', this.handleVideoElementCreated)
     this.props.session.publish(this.publisher)
