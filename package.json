@@ -4,9 +4,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "clean": "rimraf static/bundle.*",
     "start": "node_modules/.bin/webpack -w",
     "build": "NODE_ENV=production node_modules/.bin/webpack",
-    "postinstall": "npm run build"
+    "postinstall": "npm run clean && npm run build"
   },
   "author": "Joey Jarosz",
   "license": "MIT",
@@ -49,6 +50,7 @@
     "react-router": "^2.8.1",
     "redux": "^3.6.0",
     "redux-actions": "^0.12.0",
-    "redux-router": "^2.1.2"
+    "redux-router": "^2.1.2",
+    "rimraf": "^2.6.2"
   }
 }

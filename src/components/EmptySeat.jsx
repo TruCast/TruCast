@@ -80,6 +80,7 @@ class EmptySeat extends Component {
       </div>,
       this.props.seatCount === 0 ? (
         <Button
+          key="3"
           className="TwitterLogin"
           component="a"
           target="_blank"
