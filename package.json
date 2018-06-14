@@ -51,6 +51,7 @@
     "redux": "^3.6.0",
     "redux-actions": "^0.12.0",
     "redux-router": "^2.1.2",
-    "rimraf": "^2.6.2"
+    "rimraf": "^2.6.2",
+    "simplewebrtc": "^3.0.1"
   }
 }

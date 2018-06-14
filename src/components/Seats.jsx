@@ -1,8 +1,8 @@
 /* eslint-env browser */
-/* global OT */
 
 import React, { PropTypes } from 'react'
 import { connect } from 'react-redux'
+import SimpleWebRTC from 'simplewebrtc'
 
 import Seat from 'components/Seat'
 import EmptySeat from 'components/EmptySeat'
@@ -36,14 +36,17 @@ class Seats extends React.Component {
   }
 
   componentWillMount() {
-    const { tokBoxKey, sessionId, token } = this.props.room
-    this.session = OT.initSession(tokBoxKey, sessionId)
-    this.session.connect(token, (error) => {
-      if (error) {
-        throw error
-        // return
-      }
+    this.webrtc = new SimpleWebRTC({
+      localVideoEl: 'local',
+      remoteVideosEl: '',
+      autoRequestMedia: true,
+      url: 'http://localhost:8000',
     })
+
+    console.log('webrtc component mounted')
+    this.webrtc.on('videoAdded', this.addVideo)
+    this.webrtc.on('videoRemoved', this.removeVideo)
+    this.webrtc.on('readyToCall', this.readyToCall)
   }
 
   componentDidMount() {
