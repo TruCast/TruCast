@@ -35,7 +35,7 @@ class Seats extends React.Component {
   componentWillMount() {
     this.webrtc = new SimpleWebRTC({
       localVideoEl: 'local',
-      remoteVideosEl: '',
+      remoteVideosEl: 'remotes',
       autoRequestMedia: true,
       url: 'http://localhost:8000',
     })
