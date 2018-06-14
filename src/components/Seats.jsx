@@ -76,7 +76,7 @@ class Seats extends React.Component {
   renderSeat = (seat) => (
     <Seat
       {...seat}
-      session={this.session}
+      session={this.webrtc}
       size={this.state.size}
       userId={this.props.userId}
       key={seat.seatUserId}
