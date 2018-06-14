@@ -128,10 +128,9 @@ func (s *Server) HandleWS(w http.ResponseWriter, r *http.Request) {
 			room, messages := s.State.Join(currentRoomId, userId, r.RemoteAddr)
 			roomMessages = messages
 
-			s.State.SetRoomSessionId(currentRoomId, session.SessionId)
+			s.State.SetRoomSessionId(currentRoomId)
 			// Set this before the JSON serialization.
-			room.sessionId = session.SessionId
-
+			room.sessionId = currentRoomId
 			// Send the initial payload on join.
 			roomData := room.ToJSON()
 			roomMessage := getMessage(ROOM_DATA, roomData)

@@ -100,9 +100,9 @@ func (r *Room) getViewerPayload(userId string) map[string]interface{} {
 }
 
 type State interface {
-	SetRoomSessionId(roomId string, sessionId string)
+	SetRoomSessionId(roomId string)
 	// userId is "" if the user is unauthenticated
-	Join(roomId string, userId string, address string) (*Room, chan StateMessage)//address string
+	Join(roomId string, userId string, address string) (*Room, chan StateMessage) //address string
 	// userId is "" if the user is unauthenticated
 	Leave(roomId string, skip chan StateMessage, userId string)
 	AddComment(roomId string, skip chan StateMessage, comment Comment)
@@ -297,13 +297,13 @@ func (s *LocalState) LeaveSeat(roomId string, messages chan StateMessage, userId
 	})
 }
 
-func (s *LocalState) SetRoomSessionId(roomId string, sessionId string) {
+func (s *LocalState) SetRoomSessionId(roomId string) {
 	room, ok := s.rooms[roomId]
 	if !ok {
 		return
 	}
 
-	room.sessionId = sessionId
+	room.sessionId = roomId
 	s.rooms[roomId] = room
 }
 

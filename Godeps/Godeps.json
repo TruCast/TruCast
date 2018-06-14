@@ -43,10 +43,6 @@
 			"Rev": "a69d9f6de432e2c6b296a947d8a5ee88f68522cf"
 		},
 		{
-			"ImportPath": "github.com/pjebs/tokbox",
-			"Rev": "bd811d1cf7668be734a212e501ce9505d1629368"
-		},
-		{
 			"ImportPath": "github.com/rs/cors",
 			"Comment": "v1.2-1-geabcc6a",
 			"Rev": "eabcc6af4bbe5ad3a949d36450326a2b0b9894b8"
