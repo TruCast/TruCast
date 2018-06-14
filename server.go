@@ -7,7 +7,6 @@ import (
 
 	"github.com/garyburd/go-oauth/oauth"
 	"github.com/garyburd/redigo/redis"
-	"github.com/pjebs/tokbox"
 	"gopkg.in/boj/redistore.v1"
 )
 
@@ -16,7 +15,6 @@ const (
 	Production
 )
 
-
 type Server struct {
 	RediStore     *redistore.RediStore
 	RedisPool     *redis.Pool
@@ -24,8 +22,6 @@ type Server struct {
 	State         State
 	ClientBaseUrl string
 	ForceHTTPS    bool
-	TokBox        *tokbox.Tokbox
-	TokBoxKey     string
 }
 
 func newPool(addr, password string) *redis.Pool {
@@ -85,13 +81,6 @@ func NewServer() Server {
 		panic(err)
 	}
 
-	// TokBox
-	tokBoxKey := os.Getenv("TOKBOX_KEY")
-	tb := tokbox.New(
-		tokBoxKey,
-		os.Getenv("TOKBOX_SECRET_KEY"),
-	)
-
 	// OAuth
 	gob.Register(&oauth.Credentials{})
 	oauthClient := oauth.Client{
@@ -120,7 +109,5 @@ func NewServer() Server {
 		State:         &state,
 		ClientBaseUrl: clientBaseUrl,
 		ForceHTTPS:    forceHTTPS,
-		TokBox:        tb,
-		TokBoxKey:     tokBoxKey,
 	}
 }

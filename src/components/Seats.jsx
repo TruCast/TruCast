@@ -23,9 +23,6 @@ class Seats extends React.Component {
       seats: PropTypes.arrayOf(
         PropTypes.string.isRequired,
       ).isRequired,
-      token: PropTypes.string.isRequired,
-      tokBoxKey: PropTypes.string.isRequired,
-      sessionId: PropTypes.string.isRequired,
     }).isRequired,
     leaveSeat: PropTypes.func.isRequired,
   }

@@ -6,7 +6,6 @@ import (
 	"time"
 
 	"github.com/gorilla/websocket"
-	"github.com/pjebs/tokbox"
 )
 
 const (
@@ -42,10 +41,6 @@ func getMessage(
 		"type":    messageType,
 		"payload": payload,
 	}
-}
-
-func newToken(session *tokbox.Session, role tokbox.Role, userId string) (string, error) {
-	return session.Token(role, "userId="+userId, tokbox.Days30)
 }
 
 func (s *Server) HandleWS(w http.ResponseWriter, r *http.Request) {
@@ -133,55 +128,12 @@ func (s *Server) HandleWS(w http.ResponseWriter, r *http.Request) {
 			room, messages := s.State.Join(currentRoomId, userId, r.RemoteAddr)
 			roomMessages = messages
 
-			// Create the room's TokBox session if it does not exist.
-			var session *tokbox.Session
-			if room.sessionId == "" {
-				// Add a new session id to the room.
-				session, err = s.TokBox.NewSession("", tokbox.MediaRouter)
-				if err != nil {
-					log.Println("tokbox new session error:", err)
-					return
-				}
-
-				s.State.SetRoomSessionId(currentRoomId, session.SessionId)
-				// Set this before the JSON serialization.
-				room.sessionId = session.SessionId
-			} else {
-				session = &tokbox.Session{
-					SessionId: room.sessionId,
-					T:         s.TokBox,
-				}
-			}
-
-			role := tokbox.Role(tokbox.Publisher)
-			// TODO: send specific tokens based on the user role. this
-			// current solution is a vulnerability.
-			// role := tokbox.Role(tokbox.Subscriber)
-			// if isHost {
-			// 	// Only the host gets the publish ability on initial connection.
-			// 	role = tokbox.Role(tokbox.Publisher)
-			// }
-			// subRole := tokbox.Role(tokbox.Subscriber)
-
-			token, err := newToken(session, role, userId)
-			if err != nil {
-				println("err", err.Error())
-				log.Println("token generation error:", err)
-				return
-			}
-
-			/* subToken, err := newToken(session, subRole, userId)
-			if err != nil {
-				println("err", err.Error())
-				log.Println("token generation error:", err)
-				return
-			}*/
+			s.State.SetRoomSessionId(currentRoomId, session.SessionId)
+			// Set this before the JSON serialization.
+			room.sessionId = session.SessionId
 
 			// Send the initial payload on join.
 			roomData := room.ToJSON()
-			roomData["token"] = token
-			// roomData["subToken"] = subToken
-			roomData["tokBoxKey"] = s.TokBoxKey
 			roomMessage := getMessage(ROOM_DATA, roomData)
 			if err = conn.WriteJSON(roomMessage); err != nil {
 				log.Println("join error:", err)
